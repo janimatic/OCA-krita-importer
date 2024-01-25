@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=OCAimport
+X-Python-2-Compatible=false
+X-Krita-Manual=manual.html
+Name=OCAimport
+Comment=Imports Animation keyframes to Krita from an OCA file + image sequences
