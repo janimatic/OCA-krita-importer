@@ -49,13 +49,15 @@ class OCAImportDialog(QDialog):
                 newLayer.setOpacity(layer["opacity"] * 255)
                 newLayer.setVisible(layer["visible"])
                 newLayer.setPinnedToTimeline(layer["visible"])
-                newLayer.enableAnimation()
+                if(layer["animated"]):
+                    newLayer.enableAnimation()
                 for frame in layer["frames"]:
                     document.setCurrentTime(frame["frameNumber"])
                     add_blank_frame_action.trigger()
                     imagePath = frame["fileName"]
                     image = QImage(parentDir + "/" + imagePath)  # note: pixel format conversion is skipped!
-                    pixelData = bytes(image.constBits().asarray(image.byteCount()))
-                    newLayer.setPixelData(pixelData, 0, 0, image.width(), image.height())
-                document.refreshProjection()
-                document.waitForDone()
+                    if oca["colorDepth"] == "U8":
+                        pixelData = bytes(image.constBits().asarray(image.byteCount()))
+                        newLayer.setPixelData(pixelData, 0, 0, image.width(), image.height())
+        document.refreshProjection()
+        document.waitForDone()
